@@ -1,0 +1,3 @@
+Microserviço produzido em NODEJS utilizando o EXPRESS usado para enviar mensagem
+através do serviço twilio. Para enviar mensagem deve ser feita uma requisição
+HTTP GET com os parametros num(numero de telefone) e msg(corpo da mensagem).
