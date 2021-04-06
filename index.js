@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = 3000
 
 app.get('/sendWPP', function (req, res) {
-    const accountSid = 'AC6d518caf79f7155886c74cf244140ee5';
-    const authToken = '552e53b7779c14ad57f9ccf136138055';
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
     const client = require('twilio')(accountSid, authToken);
     const mensagem = req.query.msg;
     const numero = req.query.num;
