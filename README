@@ -1,3 +1,5 @@
 Microserviço produzido em NODEJS utilizando o EXPRESS usado para enviar mensagem
 através do serviço twilio. Para enviar mensagem deve ser feita uma requisição
 HTTP GET com os parametros num(numero de telefone) e msg(corpo da mensagem).
+Deve ser adicionado um arquivo .env com TWILIO_ACCOUNT_SID e TWILIO_AUTH_TOKEN
+com seus dados TWILIO para funcionar
