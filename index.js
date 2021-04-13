@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require('express')
-const fs = require('fs');
 const app = express();
 const port = 3000;
 
@@ -12,7 +11,7 @@ app.post('/sendWPP', function (req, res) {
     const client = require('twilio')(accountSid, authToken);
     const mensagem = req.body.msg;
     const numero = req.body.num;
-    
+
     client.messages
         .create({
             body: mensagem,

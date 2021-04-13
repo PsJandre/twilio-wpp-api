@@ -1,5 +1,22 @@
 Microserviço produzido em NODEJS utilizando o EXPRESS usado para enviar mensagem
 através do serviço twilio. Para enviar mensagem deve ser feita uma requisição
-HTTP GET com os parametros num(numero de telefone) e msg(corpo da mensagem).
+HTTP POST com os parametros num(numero de telefone) e msg(corpo da mensagem).
 Deve ser adicionado um arquivo .env com TWILIO_ACCOUNT_SID e TWILIO_AUTH_TOKEN
-com seus dados TWILIO para funcionar
+com seus dados TWILIO para funcionar e o MESSAGING_ID para mensagens sms ou o
+TWILIO_NUMBER para whatsapp.
+Comandos para replicar o programa:
+1. Com o node instalado, va para a pasta que voce quer criar o programa e digite:
+npm init
+npm install twilio
+npm install dotenv
+npm install express --save
+2. Agora com as dependencias todas instaladas, crie um arquivo js (por exemplo index.js)
+e um chamado .env para guardar as variaveis de ambiente
+3. adicione a chamada ao arquivo criado dentro de package.json na aba de scripts em start:
+"start": "node index.js"
+4. No arquivo .env devem ser colocados suas variaveis de ambiente:
+TWILIO_ACCOUNT_SID=O SEU ID
+TWILIO_AUTH_TOKEN=O SEU TOKEN
+TWILIO_MESSAGING_ID=O SEU ID DO PROGRAMA DE MENSAGEM
+TWILIO_NUMBER=whatsapp:SEU NUMERO TWILIO
+5. Agora é só pegar o código que esta no index deste arquivo e replicar
