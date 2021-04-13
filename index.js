@@ -1,41 +1,46 @@
 require('dotenv').config()
 const express = require('express')
-const app = express()
-const port = 3000
+const fs = require('fs');
+const app = express();
+const port = 3000;
 
-app.get('/sendWPP', function (req, res) {
+app.use(express.urlencoded({extended: false}));
+
+app.post('/sendWPP', function (req, res) {
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
     const authToken = process.env.TWILIO_AUTH_TOKEN;
     const client = require('twilio')(accountSid, authToken);
-    const mensagem = req.query.msg;
-    const numero = req.query.num;
+    const mensagem = req.body.msg;
+    const numero = req.body.num;
+    
     client.messages
         .create({
             body: mensagem,
-            from: 'whatsapp:+14155238886',
+            from: process.env.TWILIO_NUMBER,
             to: `whatsapp:+${numero}`
         })
-        .then(message => res.send(`Mensagem: ${mensagem}\n enviada para o numero +${numero}`))
+        .then(message => res.send(`Mensagem whatsapp: ${mensagem} enviada para o numero +${numero}`))
+        .catch(message => res.status(400).send(`Erro ao enviar mensagem: ${mensagem} numero: ${numero}`))
         .done();
         
 })
-app.get('/sendSMS', function (req, res) {
+app.post('/sendSMS', function (req, res) {
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
     const authToken = process.env.TWILIO_AUTH_TOKEN;
     const client = require('twilio')(accountSid, authToken);
-    const mensagem = req.query.msg;
-    const numero = req.query.num;
+    const mensagem = req.body.msg;
+    const numero = req.body.num;
     client.messages
         .create({
             body: mensagem,
-            messagingServiceSid: 'MG98c396b81b118f3e4910f978e2dcbb19',      
+            messagingServiceSid: process.env.TWILIO_MESSAGING_ID,      
             to: `+${numero}`
         })
-        .then(message => res.send(`Mensagem: ${mensagem}\n enviada para o numero ${numero}`))
+        .then(message => res.status(201).send(`Mensagem sms: ${mensagem} enviada para o numero ${numero}`))
+        .catch(message => res.status(400).send(`Erro ao enviar mensagem: ${mensagem} numero: ${numero}`))
         .done();
         
 })
-
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 })
